@@ -2,22 +2,34 @@ package com.app.helpdesk.domain;
 
 import com.app.helpdesk.domain.enums.Priority;
 import com.app.helpdesk.domain.enums.Status;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.*;
 import org.springframework.cglib.core.Local;
 
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
+@Entity
+public class Ticket implements Serializable {
 
-public class Ticket {
-
+  @Serial
+  private static final long serialVersionUID = 1L;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private int id;
+  @JsonFormat(pattern = "dd/MM/yyyy")
   private LocalDate openingDate = LocalDate.now();
+  @JsonFormat(pattern = "dd/MM/yyyy")
   private LocalDate closingDate = LocalDate.now();
   private Priority priority;
   private Status status;
   private String Title;
   private String observations;
-
+  @ManyToOne
+  @JoinColumn(name = "technical_id")
   private Technical technical;
+  @JoinColumn(name = "customer_id")
   private Customer customer;
 
   public Ticket() {
