@@ -5,7 +5,7 @@ public enum Priority {
   MEDIUM(1, "MEDIUM"),
   HIGH(2, "HIGH");
 
-  private int code;
+  private Integer code;
   private String desc;
 
   Priority(int code, String desc) {

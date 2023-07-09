@@ -4,7 +4,6 @@ import com.app.helpdesk.domain.enums.Priority;
 import com.app.helpdesk.domain.enums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import org.springframework.cglib.core.Local;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -17,29 +16,30 @@ public class Ticket implements Serializable {
   private static final long serialVersionUID = 1L;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private int id;
+  private Integer id;
   @JsonFormat(pattern = "dd/MM/yyyy")
   private LocalDate openingDate = LocalDate.now();
   @JsonFormat(pattern = "dd/MM/yyyy")
-  private LocalDate closingDate = LocalDate.now();
+  private LocalDate closingDate;
   private Priority priority;
   private Status status;
-  private String Title;
+  private String title;
   private String observations;
   @ManyToOne
   @JoinColumn(name = "technical_id")
   private Technical technical;
+  @ManyToOne
   @JoinColumn(name = "customer_id")
   private Customer customer;
 
   public Ticket() {
+    super();
   }
 
-  public Ticket(int id, Priority priority, Status status, String title, String observations, Technical technical, Customer customer) {
-    this.id = id;
+  public Ticket(Priority priority, Status status, String title, String observations, Technical technical, Customer customer) {
     this.priority = priority;
     this.status = status;
-    Title = title;
+    this.title = title;
     this.observations = observations;
     this.technical = technical;
     this.customer = customer;
@@ -50,7 +50,7 @@ public class Ticket implements Serializable {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     Ticket ticket = (Ticket) o;
-    return id == ticket.id;
+    return Objects.equals(id, ticket.id);
   }
 
   @Override
@@ -104,11 +104,11 @@ public class Ticket implements Serializable {
   }
 
   public String getTitle() {
-    return Title;
+    return title;
   }
 
   public Ticket setTitle(String title) {
-    Title = title;
+    this.title = title;
     return this;
   }
 

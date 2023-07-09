@@ -5,7 +5,7 @@ public enum Status {
   GOING(1, "GOING"),
   CLOSED(2, "CLOSED");
 
-  private int code;
+  private Integer code;
   private String desc;
 
   Status(int code, String desc) {

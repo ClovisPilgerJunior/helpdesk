@@ -15,11 +15,12 @@ public class Technical extends Person {
   private List<Ticket> tickets = new ArrayList<>();
 
   public Technical() {
+    super();
     addProfiles(Profile.CLIENTE);
   }
 
-  public Technical(int id, String name, String cpf, String email, String password) {
-    super(id, name, cpf, email, password);
+  public Technical(String name, String cpf, String email, String password) {
+    super(name, cpf, email, password);
     addProfiles(Profile.CLIENTE);
   }
 

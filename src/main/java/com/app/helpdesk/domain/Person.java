@@ -18,7 +18,7 @@ public abstract class Person implements Serializable {
   private static final long serialVersionUID = 1L;
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  protected int id;
+  protected Integer id;
   protected String name;
 
   @Column(unique = true)
@@ -37,8 +37,7 @@ public abstract class Person implements Serializable {
     addProfiles(Profile.CLIENTE);
   }
 
-  public Person(int id, String name, String cpf, String email, String password) {
-    this.id = id;
+  public Person(String name, String cpf, String email, String password) {
     this.name = name;
     this.cpf = cpf;
     this.email = email;

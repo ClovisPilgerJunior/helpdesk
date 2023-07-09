@@ -19,8 +19,8 @@ public class Customer extends Person {
     addProfiles(Profile.CLIENTE);
   }
 
-  public Customer(int id, String name, String cpf, String email, String password) {
-    super(id, name, cpf, email, password);
+  public Customer(String name, String cpf, String email, String password) {
+    super(name, cpf, email, password);
     addProfiles(Profile.CLIENTE);
   }
 

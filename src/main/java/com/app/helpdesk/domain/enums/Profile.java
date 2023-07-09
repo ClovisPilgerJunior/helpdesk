@@ -5,7 +5,7 @@ public enum Profile {
   CLIENTE(1, "ROLE_CUSTOMER"),
   TECNICO(2, "ROLE_TECHNICAL");
 
-  private int code;
+  private Integer code;
   private String desc;
 
   Profile(int code, String desc) {
