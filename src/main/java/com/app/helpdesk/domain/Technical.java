@@ -1,6 +1,7 @@
 package com.app.helpdesk.domain;
 
 import com.app.helpdesk.domain.enums.Profile;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 
@@ -11,17 +12,18 @@ import java.util.List;
 public class Technical extends Person {
   @Serial
   private static final long serialVersionUID = 1L;
+  @JsonIgnore
   @OneToMany(mappedBy = "technical")
   private List<Ticket> tickets = new ArrayList<>();
 
   public Technical() {
     super();
-    addProfiles(Profile.CLIENTE);
+    addProfiles(Profile.CUSTOMER);
   }
 
   public Technical(String name, String cpf, String email, String password) {
     super(name, cpf, email, password);
-    addProfiles(Profile.CLIENTE);
+    addProfiles(Profile.CUSTOMER);
   }
 
   public List<Ticket> getTickets() {
