@@ -2,8 +2,8 @@ package com.app.helpdesk.domain.enums;
 
 public enum Profile {
   ADMIN(0, "ROLE_ADMIN"),
-  CLIENTE(1, "ROLE_CUSTOMER"),
-  TECNICO(2, "ROLE_TECHNICAL");
+  CUSTOMER(1, "ROLE_CUSTOMER"),
+  TECHNICIAN(2, "ROLE_TECHNICAL");
 
   private Integer code;
   private String desc;
