@@ -1,6 +1,7 @@
 package com.app.helpdesk.services;
 
 import com.app.helpdesk.domain.Technical;
+import com.app.helpdesk.domain.dtos.TechnicalDTO;
 import com.app.helpdesk.repositories.TechnicalRepository;
 import com.app.helpdesk.services.execptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,12 @@ public class TechnicalService {
   @Autowired
   private TechnicalRepository technicalRepository;
 
+  public Technical create(TechnicalDTO objectDTO) {
+    objectDTO.setId(null);
+    Technical newObj = new Technical(objectDTO);
+    return technicalRepository.save(newObj);
+  }
+
   public Technical findById(Integer id) {
     Optional<Technical> object = technicalRepository.findById(id);
     return object.orElseThrow(() -> new ObjectNotFoundException("Technical not found with id: " + id));
@@ -23,4 +30,6 @@ public class TechnicalService {
   public List<Technical> findAll() {
     return technicalRepository.findAll();
   }
+
+
 }
