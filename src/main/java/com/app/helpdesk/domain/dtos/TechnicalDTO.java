@@ -3,10 +3,6 @@ package com.app.helpdesk.domain.dtos;
 import com.app.helpdesk.domain.Technical;
 import com.app.helpdesk.domain.enums.Profile;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.FetchType;
 
 import java.io.Serial;
 import java.io.Serializable;
