@@ -2,6 +2,7 @@ package com.app.helpdesk.services;
 
 import com.app.helpdesk.domain.Technical;
 import com.app.helpdesk.repositories.TechnicalRepository;
+import com.app.helpdesk.services.execptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,6 @@ public class TechnicalService {
 
   public Technical findById(Integer id) {
     Optional<Technical> object = technicalRepository.findById(id);
-    return object.orElse(null);
+    return object.orElseThrow(() -> new ObjectNotFoundException("Technical not found with id: " + id));
   }
 }
