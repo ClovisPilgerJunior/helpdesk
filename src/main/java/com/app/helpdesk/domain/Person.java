@@ -21,7 +21,7 @@ public abstract class Person implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   protected Integer id;
   protected String name;
-  @CPF
+  @CPF(message = "Invalid Brazilian Individual Taxpayer Registration (CPF) number")
   @Column(unique = true)
   protected String cpf;
   @Column(unique = true)

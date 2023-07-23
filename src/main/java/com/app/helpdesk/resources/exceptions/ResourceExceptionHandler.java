@@ -1,5 +1,6 @@
 package com.app.helpdesk.resources.exceptions;
 
+import com.app.helpdesk.services.execptions.ConstraintViolationException;
 import com.app.helpdesk.services.execptions.DataIntegrityViolationException;
 import com.app.helpdesk.services.execptions.ObjectNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -50,5 +51,17 @@ public class ResourceExceptionHandler {
     }
 
     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+  }
+
+  @ExceptionHandler({ConstraintViolationException.class})
+  public ResponseEntity<StandardError> constraintViolationException(ConstraintViolationException ex, HttpServletRequest request) {
+    StandardError error = new StandardError(
+        System.currentTimeMillis(),
+        HttpStatus.BAD_REQUEST.value(),
+        "Invalid Brazilian Individual Taxpayer Registration (CPF) number",
+        ex.getMessage(),
+        request.getRequestURI()
+    );
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
   }
 }
