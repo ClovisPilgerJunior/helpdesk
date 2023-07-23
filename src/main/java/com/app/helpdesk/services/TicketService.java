@@ -6,6 +6,7 @@ import com.app.helpdesk.services.execptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,6 +17,10 @@ public class TicketService {
 
   public Ticket findById(Integer id) {
     Optional<Ticket> ticket = ticketRepository.findById(id);
-    return ticket.orElseThrow(() -> new ObjectNotFoundException("Object not found! ID:" + id));
+    return ticket.orElseThrow(() -> new ObjectNotFoundException("Object not found! ID: " + id));
+  }
+
+  public List<Ticket> findAll() {
+    return ticketRepository.findAll();
   }
 }
