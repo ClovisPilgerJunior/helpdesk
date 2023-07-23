@@ -3,10 +3,13 @@ package com.app.helpdesk.resources.exceptions;
 import com.app.helpdesk.domain.Ticket;
 import com.app.helpdesk.domain.dtos.TicketDTO;
 import com.app.helpdesk.services.TicketService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,5 +30,12 @@ public class TicketResource {
     List<Ticket> list = ticketService.findAll();
     List<TicketDTO> listDTO = list.stream().map(TicketDTO::new).toList();
     return ResponseEntity.ok().body(listDTO);
+  }
+
+  @PostMapping
+  public ResponseEntity<TicketDTO> create(@Valid @RequestBody TicketDTO ticketDTO){
+    Ticket ticket = ticketService.create(ticketDTO);
+    URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}").buildAndExpand(ticket.getId()).toUri();
+    return ResponseEntity.created(uri).build();
   }
 }
