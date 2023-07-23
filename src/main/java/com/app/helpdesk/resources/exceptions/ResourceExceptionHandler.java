@@ -1,5 +1,6 @@
 package com.app.helpdesk.resources.exceptions;
 
+import com.app.helpdesk.services.execptions.DataIntegrityViolationException;
 import com.app.helpdesk.services.execptions.ObjectNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ResourceExceptionHandler {
 
   @ExceptionHandler({ObjectNotFoundException.class})
-  public ResponseEntity<StandardError> objectNotFoundExecption(ObjectNotFoundException ex, HttpServletRequest request) {
+  public ResponseEntity<StandardError> objectNotFoundException(ObjectNotFoundException ex, HttpServletRequest request) {
     StandardError error = new StandardError(
         System.currentTimeMillis(),
         HttpStatus.NOT_FOUND.value(),
@@ -20,5 +21,16 @@ public class ResourceExceptionHandler {
         request.getRequestURI()
         );
     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+  }
+  @ExceptionHandler({DataIntegrityViolationException.class})
+  public ResponseEntity<StandardError> dataIntegrityViolationException(DataIntegrityViolationException ex, HttpServletRequest request) {
+    StandardError error = new StandardError(
+        System.currentTimeMillis(),
+        HttpStatus.BAD_REQUEST.value(),
+        "Violation of data integrity",
+        ex.getMessage(),
+        request.getRequestURI()
+    );
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
   }
 }

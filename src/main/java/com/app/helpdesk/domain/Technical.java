@@ -24,8 +24,8 @@ public class Technical extends Person {
     addProfiles(Profile.CUSTOMER);
   }
 
-  public Technical(String name, String cpf, String email, String password) {
-    super(name, cpf, email, password);
+  public Technical(Integer id, String name, String cpf, String email, String password) {
+    super(id, name, cpf, email, password);
     addProfiles(Profile.CUSTOMER);
   }
 
@@ -47,4 +47,5 @@ public class Technical extends Person {
     this.tickets = tickets;
     return this;
   }
+
 }

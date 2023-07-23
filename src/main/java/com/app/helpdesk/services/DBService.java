@@ -25,16 +25,16 @@ public class DBService {
 
   public void startDB(){
     // Criar técnico com perfil administrador
-    Technical tec1 = new Technical( "Junior Pilger", "11122233344", "a@a.com.br", "123");
+    Technical tec1 = new Technical(null, "Junior Pilger", "11122233344", "a@a.com.br", "123");
     tec1.addProfiles(Profile.ADMIN);
 
     // Criar técnicos
-    Technical tec2 = new Technical("John Doe", "55566677788", "john.doe@example.com", "456");
-    Technical tec3 = new Technical("Mary Johnson", "11122233364", "mary.johnson@example.com", "789");
-    Technical tec4 = new Technical("Robert Smith", "99988877766", "robert.smith@example.com", "012");
-    Technical tec5 = new Technical("Jane Doe", "33344455566", "jane.doe@example.com", "345");
-    Technical tec6 = new Technical("Michael Johnson", "77788899900", "michael.johnson@example.com", "678");
-    Technical tec7 = new Technical("Emily Smith", "22233344455", "emily.smith@example.com", "901");
+    Technical tec2 = new Technical(null,"John Doe", "55566677788", "john.doe@example.com", "456");
+    Technical tec3 = new Technical(null,"Mary Johnson", "11122233364", "mary.johnson@example.com", "789");
+    Technical tec4 = new Technical(null,"Robert Smith", "99988877766", "robert.smith@example.com", "012");
+    Technical tec5 = new Technical(null,"Jane Doe", "33344455566", "jane.doe@example.com", "345");
+    Technical tec6 = new Technical(null,"Michael Johnson", "77788899900", "michael.johnson@example.com", "678");
+    Technical tec7 = new Technical(null,"Emily Smith", "22233344455", "emily.smith@example.com", "901");
 
     tec2.addProfiles(Profile.TECHNICIAN);
     tec3.addProfiles(Profile.TECHNICIAN);
@@ -46,12 +46,12 @@ public class DBService {
     technicalRepository.saveAll(List.of(tec1, tec2, tec3, tec4, tec5, tec6, tec7));
 
     // Criar clientes
-    Customer cus1 = new Customer("Linus Torvalds", "44433322211", "linux@linux.com.br", "123");
-    Customer cus2 = new Customer("Alice Johnson", "44455566677", "alice.johnson@example.com", "234");
-    Customer cus3 = new Customer("David Smith", "66677788899", "david.smith@example.com", "567");
-    Customer cus4 = new Customer("Sarah Doe", "88899900011", "sarah.doe@example.com", "890");
-    Customer cus5 = new Customer("Robert Johnson", "55544433322", "robert.johnson@example.com", "123");
-    Customer cus6 = new Customer("Emily Davis", "22211100099", "emily.davis@example.com", "456");
+    Customer cus1 = new Customer(null,"Linus Torvalds", "44433322211", "linux@linux.com.br", "123");
+    Customer cus2 = new Customer(null,"Alice Johnson", "44455566677", "alice.johnson@example.com", "234");
+    Customer cus3 = new Customer(null,"David Smith", "66677788899", "david.smith@example.com", "567");
+    Customer cus4 = new Customer(null,"Sarah Doe", "88899900011", "sarah.doe@example.com", "890");
+    Customer cus5 = new Customer(null,"Robert Johnson", "55544433322", "robert.johnson@example.com", "123");
+    Customer cus6 = new Customer(null,"Emily Davis", "22211100099", "emily.davis@example.com", "456");
    // Customer cus7 = new Customer("Daniel Smith", "99988877766", "daniel.smith@example.com", "789");
 
     customerRepository.saveAll(List.of(cus1, cus2, cus3, cus4, cus5, cus6));
