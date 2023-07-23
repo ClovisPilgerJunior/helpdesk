@@ -5,6 +5,7 @@ import com.app.helpdesk.domain.dtos.TechnicalDTO;
 import com.app.helpdesk.services.TechnicalService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -45,5 +46,11 @@ public class TechnicalResource {
   public ResponseEntity<TechnicalDTO> update(@PathVariable Integer id, @Valid @RequestBody TechnicalDTO objDTO) {
     Technical obj = technicalService.update(id, objDTO);
     return ResponseEntity.ok().body(new TechnicalDTO(obj));
+  }
+
+  @DeleteMapping(value = "/{id}")
+  public ResponseEntity<String> delete(@PathVariable(value = "id") Integer id) {
+    technicalService.delete(id);
+    return ResponseEntity.status(HttpStatus.OK).body("Technical with ID " + id + " deleted successfully.");
   }
 }
