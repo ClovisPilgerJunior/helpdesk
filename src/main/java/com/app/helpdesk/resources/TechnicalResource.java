@@ -3,9 +3,8 @@ package com.app.helpdesk.resources;
 import com.app.helpdesk.domain.Technical;
 import com.app.helpdesk.domain.dtos.TechnicalDTO;
 import com.app.helpdesk.services.TechnicalService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -36,7 +35,7 @@ public class TechnicalResource {
   }
 
   @PostMapping
-  public ResponseEntity<TechnicalDTO> create(@RequestBody TechnicalDTO objectDTO){
+  public ResponseEntity<TechnicalDTO> create(@Valid @RequestBody TechnicalDTO objectDTO){
     Technical newObject = technicalService.create(objectDTO);
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObject.getId()).toUri();
     return ResponseEntity.created(uri).build();
