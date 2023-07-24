@@ -10,6 +10,7 @@ import com.app.helpdesk.services.execptions.ObjectNotFoundException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,9 @@ public class TechnicalService {
   @Autowired
   private PersonRepository personRepository;
 
+  @Autowired
+  private BCryptPasswordEncoder encoder;
+
   public Technical findById(Integer id) {
     Optional<Technical> object = technicalRepository.findById(id);
     return object.orElseThrow(() -> new ObjectNotFoundException("Technical not found with id: " + id));
@@ -35,6 +39,7 @@ public class TechnicalService {
 
   public Technical create(TechnicalDTO objectDTO) {
     objectDTO.setId(null);
+    objectDTO.setPassword(encoder.encode(objectDTO.getPassword()));
     validateCpfAndEmail(objectDTO);
     Technical newObj = new Technical(objectDTO);
     return technicalRepository.save(newObj);

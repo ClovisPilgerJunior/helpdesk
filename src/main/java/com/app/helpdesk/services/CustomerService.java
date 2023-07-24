@@ -9,6 +9,7 @@ import com.app.helpdesk.services.execptions.DataIntegrityViolationException;
 import com.app.helpdesk.services.execptions.ObjectNotFoundException;
 import jakarta.validation.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +26,9 @@ public class CustomerService {
   @Autowired
   private PersonRepository personRepository;
 
+  @Autowired
+  private BCryptPasswordEncoder encoder;
+
   public Customer findById(Integer id) {
     Optional<Customer> object = customerRepository.findById(id);
     return object.orElseThrow(() -> new ObjectNotFoundException("Customer not found with id: " + id));
@@ -36,6 +40,7 @@ public class CustomerService {
 
   public Customer create(CustomerDTO objectDTO) {
     objectDTO.setId(null);
+    objectDTO.setPassword(encoder.encode(objectDTO.getPassword()));
     validateCpfAndEmail(objectDTO);
     Customer newObj = new Customer(objectDTO);
     return customerRepository.save(newObj);
