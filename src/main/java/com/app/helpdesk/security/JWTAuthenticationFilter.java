@@ -23,17 +23,22 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
   private JWTUtil jwtUtil;
 
 
-  public JWTAuthenticationFilter(AuthenticationManager authenticationManager, AuthenticationManager authenticationManager1, JWTUtil jwtUtil) {
-    super(authenticationManager);
-    this.authenticationManager = authenticationManager1;
+  public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
+    super();
+    this.authenticationManager = authenticationManager;
     this.jwtUtil = jwtUtil;
   }
 
   @Override
-  public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+  public Authentication attemptAuthentication(
+      HttpServletRequest request,
+      HttpServletResponse response) throws AuthenticationException {
     try {
       CredentialDTO credentialDTO = new ObjectMapper().readValue(request.getInputStream(), CredentialDTO.class);
-      UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(credentialDTO.getEmail(), credentialDTO.getPassword(), new ArrayList<>());
+      UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+          credentialDTO.getEmail(),
+          credentialDTO.getPassword(),
+          new ArrayList<>());
       Authentication authentication = authenticationManager.authenticate(authenticationToken);
       return authentication;
     }catch (Exception e){
@@ -42,7 +47,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
   }
 
   @Override
-  protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+  protected void successfulAuthentication(
+      HttpServletRequest request,
+      HttpServletResponse response,
+      FilterChain chain,
+      Authentication authResult) throws IOException, ServletException {
     String username = ((UserSS) authResult.getPrincipal()).getUsername();
     String token = jwtUtil.generateToken(username);
     response.setHeader("access-control-expose-headers", "Authorization");
@@ -50,7 +59,10 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
   }
 
   @Override
-  protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+  protected void unsuccessfulAuthentication(
+      HttpServletRequest request,
+      HttpServletResponse response,
+      AuthenticationException failed) throws IOException, ServletException {
 
     response.setStatus(401);
     response.setContentType("application/json");

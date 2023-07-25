@@ -1,4 +1,4 @@
-package com.app.helpdesk.resources.exceptions;
+package com.app.helpdesk.resources;
 
 import com.app.helpdesk.domain.Ticket;
 import com.app.helpdesk.domain.dtos.TicketDTO;

@@ -3,7 +3,8 @@ package com.app.helpdesk.config;
 
 import com.app.helpdesk.security.JWTAuthenticationFilter;
 import com.app.helpdesk.security.JWTUtil;
-import com.app.helpdesk.services.UserDetailsServiceImpl;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
@@ -26,7 +28,7 @@ import java.util.Arrays;
 @EnableWebSecurity
 public class SecurityConfig {
 
-  private static final String[] PUBLIC_MATCHERS = { "/h2-console/*", "/login/**" };
+  private static final String[] PUBLIC_MATCHERS = { "" };
 
   @Autowired
   private Environment environment;
@@ -35,7 +37,7 @@ public class SecurityConfig {
   private JWTUtil jwtUtil;
 
   @Autowired
-  private UserDetailsServiceImpl detailsService;
+  private UserDetailsService userDetailsService;
 
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfiguration) throws Exception {
@@ -47,21 +49,16 @@ public class SecurityConfig {
     if (Arrays.asList(environment.getActiveProfiles()).contains("test")) {
       http.headers().frameOptions().disable();
     }
-    http.authorizeHttpRequests().requestMatchers(toH2Console()).permitAll();
-    http.addFilter(new JWTAuthenticationFilter(authConfiguration.getAuthenticationManager(), jwtUtil));
-    http
-        .cors().and().csrf().disable()
-        .authorizeHttpRequests()
-        .requestMatchers(PUBLIC_MATCHERS).permitAll() // Permite acesso ao h2-console
-        .anyRequest().authenticated();
 
-    http
-        .headers().frameOptions().sameOrigin(); // Permite o acesso do console do H2 no mesmo domínio
+    http.cors();
 
-    http
-        .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    //http.authorizeHttpRequests().requestMatchers(toH2Console()).permitAll();
+//    http.addFilter(new JWTAuthenticationFilter(authConfiguration.getAuthenticationManager(), jwtUtil));
+    return http.csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+        .authorizeHttpRequests().requestMatchers("/login").permitAll().anyRequest().authenticated().and()
+        .build();
 
-    return http.build();
+
   }
 
   @Bean

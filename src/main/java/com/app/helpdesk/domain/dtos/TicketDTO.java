@@ -4,11 +4,13 @@ import com.app.helpdesk.domain.Ticket;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotNull;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 
 public class TicketDTO implements Serializable {
 
+  @Serial
   private static final long serialVersionUID = 1L;
   private Integer id;
   @JsonFormat(pattern = "dd/MM/yyyy")
