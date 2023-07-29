@@ -51,7 +51,8 @@ public class SecurityConfig {
 //            .requestMatchers(HttpMethod.POST,"/auth/register").permitAll()
 //            .requestMatchers(HttpMethod.POST,"/ticket").hasRole("ADMIN")
                 .requestMatchers(toH2Console()).permitAll()
-            .anyRequest().authenticated()
+                .requestMatchers("/**").permitAll()
+            .anyRequest().permitAll()
         )
         .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
         .build();
