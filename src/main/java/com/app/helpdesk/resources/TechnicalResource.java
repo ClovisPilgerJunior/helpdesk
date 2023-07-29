@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -35,19 +36,20 @@ public class TechnicalResource {
     return ResponseEntity.ok().body(listDTO);
   }
 
+  @PreAuthorize("hasAnyRole('ADMIN')")
   @PostMapping
   public ResponseEntity<TechnicalDTO> create(@Valid @RequestBody TechnicalDTO objectDTO){
     Technical newObject = technicalService.create(objectDTO);
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObject.getId()).toUri();
     return ResponseEntity.created(uri).build();
   }
-
+  @PreAuthorize("hasAnyRole('ADMIN')")
   @PutMapping(value = "/{id}")
   public ResponseEntity<TechnicalDTO> update(@PathVariable Integer id, @Valid @RequestBody TechnicalDTO objDTO) {
     Technical obj = technicalService.update(id, objDTO);
     return ResponseEntity.ok().body(new TechnicalDTO(obj));
   }
-
+  @PreAuthorize("hasAnyRole('ADMIN')")
   @DeleteMapping(value = "/{id}")
   public ResponseEntity<String> delete(@PathVariable(value = "id") Integer id) {
     technicalService.delete(id);

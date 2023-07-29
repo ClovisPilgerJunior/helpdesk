@@ -1,7 +1,6 @@
 package com.app.helpdesk.domain;
 
 import com.app.helpdesk.domain.dtos.CustomerDTO;
-import com.app.helpdesk.domain.dtos.TechnicalDTO;
 import com.app.helpdesk.domain.enums.Profile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
