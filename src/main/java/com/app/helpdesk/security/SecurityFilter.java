@@ -21,7 +21,6 @@ import java.util.Optional;
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
 
-  private AuthenticationManager authenticationManager;
   private UserDetailsServiceImpl customUserDetailsService;
 
   public SecurityFilter(UserDetailsServiceImpl customUserDetailsService) {

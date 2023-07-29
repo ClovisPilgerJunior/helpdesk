@@ -36,20 +36,20 @@ public class TechnicalResource {
     return ResponseEntity.ok().body(listDTO);
   }
 
-  @PreAuthorize("hasAnyRole('ADMIN')")
+  @PreAuthorize("hasRole('ADMIN')")
   @PostMapping
   public ResponseEntity<TechnicalDTO> create(@Valid @RequestBody TechnicalDTO objectDTO){
     Technical newObject = technicalService.create(objectDTO);
     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(newObject.getId()).toUri();
     return ResponseEntity.created(uri).build();
   }
-  @PreAuthorize("hasAnyRole('ADMIN')")
+  @PreAuthorize("hasRole('ADMIN')")
   @PutMapping(value = "/{id}")
   public ResponseEntity<TechnicalDTO> update(@PathVariable Integer id, @Valid @RequestBody TechnicalDTO objDTO) {
     Technical obj = technicalService.update(id, objDTO);
     return ResponseEntity.ok().body(new TechnicalDTO(obj));
   }
-  @PreAuthorize("hasAnyRole('ADMIN')")
+  @PreAuthorize("hasRole('ADMIN')")
   @DeleteMapping(value = "/{id}")
   public ResponseEntity<String> delete(@PathVariable(value = "id") Integer id) {
     technicalService.delete(id);
