@@ -17,17 +17,17 @@ public class TicketDTO implements Serializable {
   private LocalDate openingDate = LocalDate.now();
   @JsonFormat(pattern = "dd/MM/yyyy")
   private LocalDate closingDate;
-  @NotNull(message = "Field PRIORITY is required")
+  @NotNull(message = "O campo PRIORIDADE é requerido")
   private Integer priority;
-  @NotNull(message = "Field STATUS is required")
+  @NotNull(message = "O campo STATUS é requerido")
   private Integer status;
-  @NotNull(message = "Field TITLE is required")
+  @NotNull(message = "O campo TITULO é requerido")
   private String title;
-  @NotNull(message = "Field OBSERVATIONS is required")
+  @NotNull(message = "O campo OBSERVAÇÃO é requerido")
   private String observations;
-  @NotNull(message = "Field TECHNICIAN is required")
+  @NotNull(message = "O campo TÉCNICO é requerido")
   private Integer technical;
-  @NotNull(message = "Field CUSTOMER is required")
+  @NotNull(message = "O campo CLIENTE é requerido")
   private Integer customer;
   private String technicianName;
   private String customerName;
