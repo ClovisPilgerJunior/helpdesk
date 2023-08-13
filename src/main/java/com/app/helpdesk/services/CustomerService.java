@@ -65,11 +65,14 @@ public class CustomerService {
       }
     }
 
+    if(!objDTO.getPassword().equals(oldObj.getPassword())){
+      oldObj.setPassword(encoder.encode(objDTO.getPassword()));
+    }
+
     // Atualizar os campos necessários do objeto antigo
     oldObj.setName(objDTO.getName());
     oldObj.setCpf(objDTO.getCpf());
     oldObj.setEmail(objDTO.getEmail());
-    oldObj.setPassword(objDTO.getPassword());
     // Atualize outros campos conforme necessário
 
     return customerRepository.save(oldObj);
