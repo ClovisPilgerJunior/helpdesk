@@ -13,7 +13,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://helpdesk-front-ashy.vercel.app")
 @RestController
 @RequestMapping(value = "/ticket")
 public class TicketResource {

@@ -14,7 +14,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "https://helpdesk-front-ashy.vercel.app")
+@PreAuthorize("hasRole('ADMIN')")
 @RestController
 @RequestMapping(value = "/technical")
 public class TechnicalResource {
